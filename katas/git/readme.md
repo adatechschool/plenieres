@@ -2,10 +2,10 @@
 
 **Sommaire**
 * [Discussion autour de Git](https://github.com/adatechschool/plenieres/tree/master/katas/git#discussion-autour-de-git)
- * [Objectifs pédagogiques](https://github.com/adatechschool/plenieres/tree/master/katas/git#objectifs-p%C3%A9dagogiques)
- * [Quelques questions à se poser](https://github.com/adatechschool/plenieres/tree/master/katas/git#quelques-questions-%C3%A0-se-poser)
+    * [Objectifs pédagogiques](https://github.com/adatechschool/plenieres/tree/master/katas/git#objectifs-p%C3%A9dagogiques)
+    * [Quelques questions à se poser](https://github.com/adatechschool/plenieres/tree/master/katas/git#quelques-questions-%C3%A0-se-poser)
 * [Mise en pratique](https://github.com/adatechschool/plenieres/tree/master/katas/git#mise-en-pratique)
- * [Installation](https://github.com/adatechschool/plenieres/tree/master/katas/git#installation)
+    * [Installation](https://github.com/adatechschool/plenieres/tree/master/katas/git#installation)
 * [Ressources](https://github.com/adatechschool/plenieres/tree/master/katas/git#ressources)
 
 ## Discussion autour de Git
@@ -40,7 +40,7 @@ Sous Windows, Git s'installe via un [éxecutable](https://fr.wikipedia.org/wiki/
 https://gist.github.com/derhuerst/1b15ff4652a867391f03#file-linux-md
 
 ## Ressources
-- La doc de Git (FR) : https://git-scm.com/book/fr/v2
+- La documentation de Git (FR) : https://git-scm.com/book/fr/v2
 - Guide pour mieux comprendre Git (FR) : http://rogerdudler.github.io/git-guide/index.fr.html
 - Guide visuel (EN) : http://marklodato.github.io/visual-git-guide/index-en.html
 - Outil visuel d'aide à l'apprentissage de Git (FR) : https://learngitbranching.js.org/
