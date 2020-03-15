@@ -87,6 +87,7 @@ Puis, à tour de rôle, créez une requete de revue ("Pull request" ou "PR"). De
 
 ##### Ressources
 - Conseils pour une bonne revu de code (FR) : https://blog.nathanaelcherrier.com/fr/conseils-bonne-revue-code/
+- Faire une pull-request (FR) : https://www.atlassian.com/fr/git/tutorials/making-a-pull-request
 
 #### Changement de répertoire distant
 
@@ -103,3 +104,4 @@ Amusez-vous (sans faire de copier-coller) à envoyer votre projet sur un autre r
 - Guide pour mieux comprendre Git (FR) : http://rogerdudler.github.io/git-guide/index.fr.html
 - Guide visuel (EN) : http://marklodato.github.io/visual-git-guide/index-en.html
 - Outil visuel d'aide à l'apprentissage de Git (FR) : https://learngitbranching.js.org/
+- Contribuer à des projets open-source (FR) : https://openclassrooms.com/fr/courses/2342361-gerez-votre-code-avec-git-et-github/2433731-contribuez-a-des-projets-open-source
