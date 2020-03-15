@@ -86,8 +86,12 @@ Au lieu de merger directement sur la branche "master", envoyez votre branche per
 Puis, à tour de rôle, créez une requete de revue ("Pull request" ou "PR"). Demandez à votre binôme de relire votre PR et d'y ajouter des commentaires ou des propositions de changement de code.
 
 ##### Ressources
-- Conseils pour une bonne revu de code (FR) : https://blog.nathanaelcherrier.com/fr/conseils-bonne-revue-code/
+- Conseils pour une bonne revue de code (FR) :
+      - https://blog.nathanaelcherrier.com/fr/conseils-bonne-revue-code/
+      - https://medium.com/livementor-product/la-code-review-un-exercice-plus-difficile-quil-n-y-parait-7959c872fb2
 - Faire une pull-request (FR) : https://www.atlassian.com/fr/git/tutorials/making-a-pull-request
+- Vidéo sur la gestion des PR (FR) : https://www.youtube.com/watch?v=YRAm14PNWg8
+
 
 #### Changement de répertoire distant
 
