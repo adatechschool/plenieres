@@ -1,10 +1,11 @@
 # Git
 
 **Sommaire**
-* Discussion autour de Git
-** Objectifs pédagogiques
-** Quelques questions à se poser
-** Mise en pratique
+* [Discussion autour de Git](https://github.com/adatechschool/plenieres/tree/master/katas/git#discussion-autour-de-git)
+ * [Objectifs pédagogiques](https://github.com/adatechschool/plenieres/tree/master/katas/git#objectifs-p%C3%A9dagogiques)
+ * [Quelques questions à se poser](https://github.com/adatechschool/plenieres/tree/master/katas/git#quelques-questions-%C3%A0-se-poser)
+* [Mise en pratique](https://github.com/adatechschool/plenieres/tree/master/katas/git#mise-en-pratique)
+ * [Installation](https://github.com/adatechschool/plenieres/tree/master/katas/git#installation)
 * [Ressources](https://github.com/adatechschool/plenieres/tree/master/katas/git#ressources)
 
 ## Discussion autour de Git
@@ -23,9 +24,9 @@ L'objectif de cette plénière est de présenter l'[outil de versionnage](https:
 * Quel(s) outil(s) préférez-vous et pourquoi ?
 * Comment mettriez-vous en place un outil de versionnage dans une équipe ?
 
-### Mise en pratique
+## Mise en pratique
 
-#### Installation
+### Installation
 
 Pour installer Git, il y a plusieurs solutions possibles en fonction du système d'exploitation sur lequel vous êtes.
 
@@ -35,7 +36,7 @@ Sous MacOS ou Lunix, vous pouvez passer par un [gestionnaire de paquets](https:/
 
 Sous Windows, Git s'installe via un [éxecutable](https://fr.wikipedia.org/wiki/.exe)
 
-##### Ressource
+#### Ressource
 https://gist.github.com/derhuerst/1b15ff4652a867391f03#file-linux-md
 
 ## Ressources
