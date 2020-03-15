@@ -1,12 +1,15 @@
 # Git
 
 **Sommaire**
-* [Discussion autour de Git](https://github.com/adatechschool/plenieres/tree/master/katas/git#discussion-autour-de-git)
-    * [Objectifs pédagogiques](https://github.com/adatechschool/plenieres/tree/master/katas/git#objectifs-p%C3%A9dagogiques)
-    * [Quelques questions à se poser](https://github.com/adatechschool/plenieres/tree/master/katas/git#quelques-questions-%C3%A0-se-poser)
-* [Mise en pratique](https://github.com/adatechschool/plenieres/tree/master/katas/git#mise-en-pratique)
-    * [Installation](https://github.com/adatechschool/plenieres/tree/master/katas/git#installation)
-* [Ressources](https://github.com/adatechschool/plenieres/tree/master/katas/git#ressources)
+* [1. Discussion autour de Git](https://github.com/adatechschool/plenieres/tree/master/katas/git#discussion-autour-de-git)
+    * [1.1. Objectifs pédagogiques](https://github.com/adatechschool/plenieres/tree/master/katas/git#objectifs-p%C3%A9dagogiques)
+    * [1.2. Quelques questions à se poser](https://github.com/adatechschool/plenieres/tree/master/katas/git#quelques-questions-%C3%A0-se-poser)
+* [2. Mise en pratique](https://github.com/adatechschool/plenieres/tree/master/katas/git#mise-en-pratique)
+    * [2.1. Outils nécessaires]()
+    * [2.2. Installation](https://github.com/adatechschool/plenieres/tree/master/katas/git#installation)
+    * [2.3. Exercice]()
+    * [2.4. Pour aller plus loin]()
+* [3. Ressources globales](https://github.com/adatechschool/plenieres/tree/master/katas/git#ressources)
 
 ## 1. Discussion autour de Git
 
@@ -26,7 +29,7 @@ L'objectif de cette plénière est de présenter l'[outil de versionnage](https:
 
 ## 2. Mise en pratique
 
-### 2.1. Outils nécéssaires
+### 2.1. Outils nécessaires
 - Git
 - Github (ou assimilé, comme Gitlab par exemple)
 - un ordinateur par personne
@@ -62,7 +65,7 @@ Pour visualiser vos interactions avec Git, n'hésitez pas à utiliser l'outil de
 #### Fonctionnalités à utiliser
 
 - Créer un répertoire distant (avec Github ou assimilé)
-- Changer les droits d'accès d'un répertoire sur github
+- Changer les droits d'accès d'un répertoire (sur Github ou assimilé)
 - Cloner un projet sur sa machine
 - Commiter avec un message d'explication
 - Récupérer les changements effectués sur le répertoire distant
@@ -71,17 +74,29 @@ Pour visualiser vos interactions avec Git, n'hésitez pas à utiliser l'outil de
 #### Ressources
 - Fusion des branches (FR) : https://openclassrooms.com/fr/courses/2342361-gerez-votre-code-avec-git-et-github/2433696-fusionnez-des-branches
 - Quelques idées d'utilisation des branches (FR) : https://www.davidlangin.fr/articles/les-bonnes-manieres-de-git
-- commit commentaires
-- merge ou rebase
+- Quelques idées et conseils pour rédiger un commentaire de commit (FR) : https://buzut.net/git-bien-nommer-ses-commits/
+- Merge ou rebase ? (FR) : https://blog.ippon.fr/2015/05/19/git-merge-ou-rebase/
 
 ### 2.4. Pour aller plus loin
 
-pull request / lecture de code / commentaires de revue / merge de pull request
-Proposition de nouveau code
-Changer de répertoire distant
+#### Revues de code
 
-#### Ressources
+Au lieu de merger directement sur la branche "master", envoyez votre branche personne de développement sur le répertoire distant.
+
+Puis, à tour de rôle, créez une requete de revue ("Pull request" ou "PR"). Demandez à votre binôme de relire votre PR et d'y ajouter des commentaires ou des propositions de changement de code.
+
+##### Ressources
 - Conseils pour une bonne revu de code (FR) : https://blog.nathanaelcherrier.com/fr/conseils-bonne-revue-code/
+
+#### Changement de répertoire distant
+
+Amusez-vous (sans faire de copier-coller) à envoyer votre projet sur un autre répertoire distant.
+
+##### Ressources
+
+- Travailler avec plusieurs répertoires distants (FR) : https://git-scm.com/book/fr/v2/Les-bases-de-Git-Travailler-avec-des-d%C3%A9p%C3%B4ts-distants
+
+[//]: # (Ajout d'une section sur comment configurer git)
 
 ## 3. Ressources globales
 - La documentation de Git (FR) : https://git-scm.com/book/fr/v2
