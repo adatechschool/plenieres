@@ -5,10 +5,10 @@
     * [1.1. Objectifs pédagogiques](https://github.com/adatechschool/plenieres/tree/master/katas/git#objectifs-p%C3%A9dagogiques)
     * [1.2. Quelques questions à se poser](https://github.com/adatechschool/plenieres/tree/master/katas/git#quelques-questions-%C3%A0-se-poser)
 * [2. Mise en pratique](https://github.com/adatechschool/plenieres/tree/master/katas/git#mise-en-pratique)
-    * [2.1. Outils nécessaires]()
+    * [2.1. Outils nécessaires](https://github.com/adatechschool/plenieres/tree/master/katas/git#21-outils-n%C3%A9cessaires)
     * [2.2. Installation](https://github.com/adatechschool/plenieres/tree/master/katas/git#installation)
-    * [2.3. Exercice]()
-    * [2.4. Pour aller plus loin]()
+    * [2.3. Exercice](https://github.com/adatechschool/plenieres/tree/master/katas/git#23-exercice)
+    * [2.4. Pour aller plus loin](https://github.com/adatechschool/plenieres/tree/master/katas/git#24-pour-aller-plus-loin)
 * [3. Ressources globales](https://github.com/adatechschool/plenieres/tree/master/katas/git#ressources)
 
 ## 1. Discussion autour de Git
