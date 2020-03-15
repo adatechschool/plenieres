@@ -26,6 +26,11 @@ L'objectif de cette plénière est de présenter l'[outil de versionnage](https:
 
 ## Mise en pratique
 
+### Outils nécéssaires
+- Git
+- Github (ou assimilé, comme Gitlab par exemple)
+- un ordinateur par personne
+
 ### Installation
 
 Pour installer Git, il y a plusieurs solutions possibles en fonction du système d'exploitation sur lequel vous êtes.
@@ -39,7 +44,46 @@ Sous Windows, Git s'installe via un [éxecutable](https://fr.wikipedia.org/wiki/
 #### Ressource
 https://gist.github.com/derhuerst/1b15ff4652a867391f03#file-linux-md
 
-## Ressources
+### Exercice
+
+La tache de cet exercice est de créer une page HTML de votre choix, par binomes.
+L'objectif est d'utiliser les fonctionnalités de Git pour mettre en place cette page HTML, à deux.
+
+Découpez ensemble (assez finement) les parties de la page HTML que vous voudriez faire pour vous partager le travail.
+
+Puis créez conjointement un répertoire distant dont chacun·e aura accès avec les meme droits.
+
+Enfin, travaillez chacun·e sur votre machine.
+Vous aurez une branche "master" et une branche de développement par personne.
+A chaque ajout de partie, faites un commit commenté. Au bout de deux ou trois commits, mergez votre avancée sur "master" et envoyez la nouvelle version de la branche "master" sur le repertoire distant.
+
+Pour visualiser vos interactions avec Git, n'hésitez pas à utiliser l'outil de visualisation [learn git branching](https://learngitbranching.js.org/)
+
+#### Fonctionnalités à utiliser
+
+- Créer un répertoire distant (avec Github ou assimilé)
+- Changer les droits d'accès d'un répertoire sur github
+- Cloner un projet sur sa machine
+- Commiter avec un message d'explication
+- Récupérer les changements effectués sur le répertoire distant
+- Merger sur "master" et envoyer sur le répertoire distant
+
+#### Ressources
+- Fusion des branches (FR) : https://openclassrooms.com/fr/courses/2342361-gerez-votre-code-avec-git-et-github/2433696-fusionnez-des-branches
+- Quelques idées d'utilisation des branches (FR) : https://www.davidlangin.fr/articles/les-bonnes-manieres-de-git
+- commit commentaires
+- merge ou rebase
+
+### Pour aller plus loin
+
+pull request / lecture de code / commentaires de revue / merge de pull request
+Proposition de nouveau code
+Changer de répertoire distant
+
+#### Ressources
+- Conseils pour une bonne revu de code (FR) : https://blog.nathanaelcherrier.com/fr/conseils-bonne-revue-code/
+
+## Ressources globales
 - La documentation de Git (FR) : https://git-scm.com/book/fr/v2
 - Guide pour mieux comprendre Git (FR) : http://rogerdudler.github.io/git-guide/index.fr.html
 - Guide visuel (EN) : http://marklodato.github.io/visual-git-guide/index-en.html
