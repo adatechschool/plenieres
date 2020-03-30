@@ -2,17 +2,18 @@
 
 ## Sommaire
 
-- Discussions sur la notion de déploiement
-  -  Objectifs pédagogiques
-  -  Questions à se poser
--  Mise en pratique
-  - Outils nécessaires
-  - Installation de PHP
-  - Création d'une page index.php
-  - Afficher la page en local
-  - Initier un repo Git
-  - Créer un compte Heroku
-  - Déployer avec Heroku
+- [Discussions sur la notion de
+  déploiement](#discussions-sur-la-notion-de-déploiement)
+  - [Objectifs pédagogiques](#objectifs-pédagogiques)
+  - [Questions à se poser](#questions-à-se-poser)
+- [Mise en pratique](#mise-en-pratique)
+  - [Outils nécessaires](#outils-nécessaires)
+  - [Installation de PHP](#installation-de-php)
+  - [Création d'une page en PHP](#création-dune-page-en-php)
+  - [Afficher la page en local](#afficher-la-page-en-local)
+  - [Initier un repo Git](#initier-un-repo-git)
+  - [Créer un compte Heroku](#créer-un-compte-heroku)
+  - [Déployer avec Heroku](#déployer-avec-heroku)
 
 ## Discussions sur la notion de déploiement et d'environnement de production
 
@@ -56,7 +57,7 @@ Sur Linux :
 sudo apt-get install php
 ```
 
-### Création d'une page index.php
+### Création d'une page en PHP
 
 > Avant de pouvoir déployer quoique ce soit, il est nécessaire d'avoir un début
 > d'application web à déployer. Nous allons donc créer une petite page qui sera
