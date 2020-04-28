@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>COVID-19 en Colombia</title>
+
+
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <style type="text/css">
+            .Recuperado{
+                color: #6ADE4C;
+            }
+            .Fallecido{
+                color: #F65568;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="assets/img/vir.jpg">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title">COVID-19 en Colombia</span>
+                            <p>Datos obtenidos del <a href="https://www.ins.gov.co/" target="_blank">Instituto Nacional de Salud de Colombia</a> a través de <a href="https://www.datos.gov.co/Salud-y-Protecci-n-Social/Casos-positivos-de-COVID-19-en-Colombia/gt2j-8ykr" target="_blank">Datos Abiertos de Colombia</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <div class="card yellow lighten-4">
+                        <div class="card-content">
+                            <span class="card-title"><i class="material-icons left">filter_list</i> Filtros</span>
+                            <form>
+                                <div class="input-field col s5">
+                                    <select id="departamentos">
+                                        <option value="" disabled selected>- Departamento -</option>
+                                    </select>
+                                </div>
+                                <div class="input-field col s5">
+                                    <select id="municipios">
+                                        <option value="" disabled selected>- Municipio -</option>
+                                    </select>
+                                </div>
+                                <div class="input-field col s2">
+                                    <button class="btn btn-primary">Limpiar</button>
+                                </div>
+                            </form>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Total Casos</span>
+                            <div id="chart3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Casos Acumulados</span>
+                            <div id="chart1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Casos por Día</span>
+                            <div id="chart2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Casos por Departamento</span>
+                            <div id="chart4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Casos por Municipio</span>
+                            <div id="chart5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Tabla de Casos</span>
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <td scope="col">ID</td>
+                                        <td scope="col">Ciudad</td>
+                                        <td scope="col">Departamento</td>
+                                        <td scope="col">Edad</td>
+                                        <td scope="col">Sexo</td>
+                                        <td scope="col">Diagnóstico<br><small>(AAAA-MM-DD)</small></td>
+                                        <td scope="col">Estado</td>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.0/d3.min.js"></script>
+        <script>
+            var margin = {top: 20, right: 20, bottom: 70, left: 40}, rawData, height, width, barras;
+            var casos = {}, sum = {}, departamentos = {}, municipios = {}, departamentosTot = [], municipiosTot = [], casosDia = [];
+            var sumCasos = 0, rec = 0, dea = 0;
+            const formatNumber = d3.format(",d");
+            width = d3.select("#chart1").node().getBoundingClientRect().width - margin.left - margin.right;
+            height = (d3.select("#chart1").node().getBoundingClientRect().width/2) - margin.top - margin.bottom;
+
+            loadData();
+
+            function loadData(){
+                d3.csv("https://www.datos.gov.co/api/views/gt2j-8ykr/rows.csv?accessType=DOWNLOAD").then(continueAndProcess);
+            }
+
+            function continueAndProcess(data)
+            {
+                  rawData = data;
+//console.log(data);
+                  processData();
+            }
+            function processData(){
+              console.log("je suis dans processData et rawData = " + rawData)
+                casos = {}; sum = {}; departamentos = {}; municipios = {}; departamentosTot = []; municipiosTot = []; casosDia = []; sumCasos = 0; rec = 0; dea = 0;
+                var depar = $('#departamentos').val();
+                var muni = $('#municipios').val();
+                console.log("muni = " + muni)
+                console.log("depar = " + depar)
+
+                $('.tbody').html('');
+
+                rawData.forEach(element => {
+                    if((muni && element["Ciudad de ubicación"] == muni) || (depar && element["Departamento o Distrito "] == depar && !muni) || (!depar && !muni)){
+                        if(casos[element["Fecha diagnostico"].substring(0,10)] !== undefined){
+                            casos[element["Fecha diagnostico"].substring(0,10)] += 1;
+                        }else{
+                            casos[element["Fecha diagnostico"].substring(0,10)] = 1;
+                        }
+                        if(departamentos[element["Departamento o Distrito "]] !== undefined){
+                            departamentos[element["Departamento o Distrito "]]["value"] += 1;
+                            if(departamentos[element["Departamento o Distrito "]][element["Ciudad de ubicación"]] !== undefined){
+                                departamentos[element["Departamento o Distrito "]][element["Ciudad de ubicación"]] += 1;
+                            }else{
+                                departamentos[element["Departamento o Distrito "]][element["Ciudad de ubicación"]] = 1;
+                            }
+                        }else{
+                            departamentos[element["Departamento o Distrito "]] = {"value":1};
+                            if(departamentos[element["Departamento o Distrito "]][element["Ciudad de ubicación"]] !== undefined){
+                                departamentos[element["Departamento o Distrito "]][element["Ciudad de ubicación"]] += 1;
+                            }else{
+                                departamentos[element["Departamento o Distrito "]][element["Ciudad de ubicación"]] = 1;
+                            }
+                        }
+                        if(element["atención"].indexOf("Recuperado") >= 0){
+                            rec++;
+                        }
+
+                        var isDead = '';
+                        if(element["atención"].indexOf("Fallecido") >= 0){
+                            dea++;
+                            isDead = " ("+element['Fecha de muerte'].substring(0,10)+")";
+                        }
+                        if(municipios[element["Ciudad de ubicación"]+" ("+element["Departamento o Distrito "]+")"] !== undefined){
+                            municipios[element["Ciudad de ubicación"]+" ("+element["Departamento o Distrito "]+")"] += 1;
+                        }else{
+                            municipios[element["Ciudad de ubicación"]+" ("+element["Departamento o Distrito "]+")"] = 1;
+                        }
+
+                        var row = "<tr><td>"+element['ID de caso']+"</td><td>"+element['Ciudad de ubicación']+"</td><td>"+element['Departamento o Distrito ']+"</td><td>"+element['Edad']+"</td><td>"+element['Sexo']+"</td><td>"+element["Fecha diagnostico"].substring(0,10)+"</td><td class='"+element['atención']+"'>"+element['atención']+isDead+"</td></tr>";
+                        $('.tbody').append(row);
+                    }
+                });
+
+                for (var key in casos) {
+                    if (casos.hasOwnProperty(key)) {
+                        casosDia.push({"date": d3.timeParse("%Y-%m-%d")(key), "value": casos[key]});
+                        sum[key] = {"date": d3.timeParse("%Y-%m-%d")(key), "value": sumCasos + casos[key]};
+                        sumCasos = sumCasos + casos[key];
+                    }
+                }
+                for (var key in departamentos) {
+                    if (departamentos.hasOwnProperty(key)) {
+                        departamentosTot.push({"Departamento": key, "value": departamentos[key]['value']});
+                        $('#departamentos').append('<option value="'+key+'">'+key+'</option>');
+                    }
+                }
+                for (var key in municipios) {
+                    if (municipios.hasOwnProperty(key)) {
+                        municipiosTot.push({"Municipio": key, "value": municipios[key]});
+                    }
+                }
+
+                barras = [];
+                barras.push({"name":"Confirmados", "value": sumCasos});
+                barras.push({"name":"Activos", "value": sumCasos-rec-dea});
+                barras.push({"name":"Recuperados", "value": rec});
+                barras.push({"name":"Fallecidos", "value": dea});
+
+                sum = Object.values(sum);
+
+                drawGraphic();
+            }
+
+            function drawGraphic(){
+                $("#chart1").html('');
+                $("#chart2").html('');
+                $("#chart3").html('');
+                $("#chart4").html('');
+                $("#chart5").html('');
+                var svg = d3.select("#chart1")
+                    .append("svg")
+                        .attr("width", width + margin.left + margin.right -20)
+                        .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                        .attr("transform",
+                            "translate(" + (margin.left+20) + "," + margin.top + ")");
+
+                var x = d3.scaleBand()
+                    .range([ 0, (width-20) ])
+                    .domain(sum.map(function(d) { return d.date; }))
+                    .padding(0.2);
+                svg.append("g")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%d/%m")))
+                    .selectAll("text")
+                        .attr("transform", "translate(-10,0)rotate(-45)")
+                        .style("text-anchor", "end");
+                /*var ticks = d3.selectAll(".tick text");
+
+                ticks.each(function(_, i) {
+                  if (i % 2 != 0) d3.select(this).remove();
+                });*/
+
+                var y = d3.scaleLinear()
+                    .domain([0, d3.max(sum, function(d) { return d.value; })])
+                    .range([ height, 0 ]);
+                    svg.append("g")
+                    .call(d3.axisLeft(y));
+
+                svg.append("path")
+                    .datum(sum)
+                    .attr("fill", "none")
+                    .attr("stroke", "#F65568")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", d3.line()
+                        .x(function(d) { return x(d.date) })
+                        .y(function(d) { return y(d.value) })
+                    );
+                svg.append("text")
+                    .attr("transform",
+                        "translate(" + (width/2) + " ," +
+                                       (height + margin.top + 20) + ")")
+                    .style("text-anchor", "middle")
+                    .text("Fecha");
+                svg.append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - margin.left -20)
+                    .attr("x",0 - (height / 2))
+                    .attr("dy", "1em")
+                    .style("text-anchor", "middle")
+                    .text("Casos confirmados acumulados");
+
+
+                //BARRAS
+                var svg = d3.select("#chart2")
+                    .append("svg")
+                        .attr("width", width + margin.left + margin.right - 20)
+                        .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                        .attr("transform",
+                            "translate(" + (margin.left+20) + "," + margin.top + ")");
+                var x = d3.scaleBand()
+                    .range([ 0, (width-20) ])
+                    .domain(casosDia.map(function(d) { return d.date; }))
+                    .padding(0.2);
+                svg.append("g")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%d/%m")))
+                    .selectAll("text")
+                        .attr("transform", "translate(-10,0)rotate(-45)")
+                        .style("text-anchor", "end");
+                var y = d3.scaleLinear()
+                    .domain([0, d3.max(casosDia, function(d) { return d.value; })])
+                    .range([ height, 0]);
+                svg.append("g")
+                    .call(d3.axisLeft(y));
+                svg.selectAll("mybar")
+                    .data(casosDia)
+                    .enter()
+                        .append("rect")
+                            .attr("x", function(d) { return x( d.date); })
+                            .attr("y", function(d) { return y(d.value); })
+                            .attr("width", x.bandwidth())
+                            .attr("height", function(d) { return height - y(d.value); })
+                            .attr("fill", '#FFCBAB')
+                svg.selectAll("mybar")
+                    .data(casosDia)
+                    .enter()
+                        .append("text")
+                            .attr("x", function(d) { return x( d.date) + x.bandwidth()/2 - 10; })
+                            .attr("y", function(d) { return y(d.value) - 5; })
+                            .text( (d) => d.value )
+                                .style("fill", "black")
+                                .style("font-family", "Helvetica")
+                                .style("font-size", "10px");
+                svg.append("text")
+                    .attr("transform",
+                        "translate(" + (width/2) + " ," +
+                                       (height + margin.top + 20) + ")")
+                    .style("text-anchor", "middle")
+                    .text("Fecha");
+                svg.append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - margin.left -20)
+                    .attr("x",0 - (height / 2))
+                    .attr("dy", "1em")
+                    .style("text-anchor", "middle")
+                    .text("Casos confirmados diarios");
+
+
+                var color = d3.scaleOrdinal()
+                    .domain(["Confirmados","Activos","Recuperados","Fallecidos"])
+                    .range(['#F65568','#FFB958','#6ADE4C','#4682B4']);
+
+                var svg = d3.select("#chart3")
+                    .append("svg")
+                        .attr("width", width + margin.left + margin.right-20)
+                        .attr("height", (height+50) + margin.top + margin.bottom + 40)
+                    .append("g")
+                        .attr("transform",
+                            "translate(" + (margin.left +20)+ "," + margin.top + ")");
+                var x = d3.scaleBand()
+                    .range([ 0, width-20 ])
+                    .domain(barras.map(function(d) { return d.name; }))
+                    .padding(0.2);
+                svg.append("g")
+                    .attr("transform", "translate(0," + (height+50) + ")")
+                    .call(d3.axisBottom(x))
+                    .selectAll("text")
+                        .attr("transform", "translate(-10,0)rotate(-45)")
+                        .style("text-anchor", "end")
+                        .style("font-size", "14px");
+                var y = d3.scaleLinear()
+                    .domain([0, d3.max(barras, function(d) { return d.value; })])
+                    .range([ (height+50), 0]);
+                svg.append("g")
+                    .call(d3.axisLeft(y));
+                svg.selectAll("mybar")
+                    .data(barras)
+                    .enter()
+                        .append("rect")
+                            .attr("x", function(d) { return x(d.name); })
+                            .attr("y", function(d) { return y(d.value); })
+                            .attr("width", x.bandwidth())
+                            .attr("height", function(d) { return (height+50) - y(d.value); })
+                            .attr("fill", function(d) { return color(d.name); })
+                svg.selectAll("mybar")
+                    .data(barras)
+                    .enter()
+                        .append("text")
+                            .attr("x", function(d) { return x(d.name) + x.bandwidth()/2 - 10; })
+                            .attr("y", function(d) { return y(d.value) - 5; })
+                            .text( (d) => d.value )
+                                .style("fill", "black")
+                                .style("font-family", "Helvetica")
+                                .style("font-size", "14px");
+                svg.append("text")
+                    .attr("transform",
+                        "translate(" + (width/2) + " ," +
+                                       (height+50 + margin.top + 70) + ")")
+                    .style("text-anchor", "middle")
+                    .text("Tipo de caso");
+                svg.append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - margin.left -20)
+                    .attr("x",0 - ((height+50) / 2))
+                    .attr("dy", "1em")
+                    .style("text-anchor", "middle")
+                    .text("Número de casos");
+
+                departamentosTot.sort(function(a, b) { return d3.descending(a.value, b.value)})
+                var svg = d3.select("#chart4")
+                  .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", (departamentosTot.length * 20) + margin.top + margin.bottom)
+                  .append("g")
+                    .attr("transform",
+                          "translate(" + (margin.left + 90) + "," + margin.top + ")");
+
+                var x = d3.scaleLinear()
+                    .domain([0, d3.max(departamentosTot, function(d) { return d.value; })])
+                    .range([ 0, width - 100]);
+                svg.append("g")
+                    .attr("transform", "translate(0," + (departamentosTot.length * 20) + ")")
+                    .call(d3.axisBottom(x))
+                    .selectAll("text")
+                      .attr("transform", "translate(-10,0)rotate(-45)")
+                      .style("text-anchor", "end");
+
+                var y = d3.scaleBand()
+                    .range([ 0, (departamentosTot.length * 20) ])
+                    .domain(departamentosTot.map(function(d) { return d.Departamento; }))
+                    .padding(.1);
+                svg.append("g")
+                    .call(d3.axisLeft(y))
+
+                svg.selectAll("myRect")
+                    .data(departamentosTot)
+                    .enter()
+                    .append("rect")
+                    .attr("x", x(0) )
+                    .attr("y", function(d) { return y(d.Departamento); })
+                    .attr("width", function(d) { return x(d.value); })
+                    .attr("height", y.bandwidth() )
+                    .attr("fill", "#FFCBAB");
+                svg.selectAll("myRect")
+                    .data(departamentosTot)
+                    .enter()
+                        .append("text")
+                            .attr("x", function(d) { return x(d.value) + 2; })
+                            .attr("y", function(d) { return y(d.Departamento) + y.bandwidth(); })
+                            .text( (d) => d.value )
+                                .style("fill", "black")
+                                .style("font-family", "Helvetica")
+                                .style("font-size", "10px");
+                svg.append("text")
+                    .attr("transform",
+                        "translate(" + (width/2) + " ," +
+                                       ((departamentosTot.length * 20) + margin.top + 20) + ")")
+                    .style("text-anchor", "middle")
+                    .text("Casos confirmados");
+                svg.append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - margin.left -90)
+                    .attr("x",0 - ((departamentosTot.length * 20) / 2))
+                    .attr("dy", "1em")
+                    .style("text-anchor", "middle")
+                    .text("Departamento");
+
+                municipiosTot.sort(function(a, b) { return d3.descending(a.value, b.value)});
+                var svg = d3.select("#chart5")
+                  .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", (municipiosTot.length * 20) + margin.top + margin.bottom)
+                  .append("g")
+                    .attr("transform",
+                          "translate(" + (margin.left + 150) + "," + margin.top + ")");
+
+                var x = d3.scaleLinear()
+                    .domain([0, d3.max(municipiosTot, function(d) { return d.value; })])
+                    .range([ 0, width - 150]);
+                svg.append("g")
+                    .attr("transform", "translate(0," + (municipiosTot.length * 20) + ")")
+                    .call(d3.axisBottom(x))
+                    .selectAll("text")
+                      .attr("transform", "translate(-10,0)rotate(-45)")
+                      .style("text-anchor", "end");
+
+                var y = d3.scaleBand()
+                    .range([ 0, (municipiosTot.length * 20) ])
+                    .domain(municipiosTot.map(function(d) { return d.Municipio; }))
+                    .padding(.1);
+                svg.append("g")
+                    .call(d3.axisLeft(y))
+
+                svg.selectAll("myRect")
+                    .data(municipiosTot)
+                    .enter()
+                    .append("rect")
+                    .attr("x", x(0) )
+                    .attr("y", function(d) { return y(d.Municipio); })
+                    .attr("width", function(d) { return x(d.value); })
+                    .attr("height", y.bandwidth() )
+                    .attr("fill", "#FFCBAB");
+                svg.selectAll("myRect")
+                    .data(municipiosTot)
+                    .enter()
+                        .append("text")
+                            .attr("x", function(d) { return x(d.value) + 2; })
+                            .attr("y", function(d) { return y(d.Municipio) + y.bandwidth(); })
+                            .text( (d) => d.value )
+                                .style("fill", "black")
+                                .style("font-family", "Helvetica")
+                                .style("font-size", "10px");
+                svg.append("text")
+                    .attr("transform",
+                        "translate(" + (width/2) + " ," +
+                                       ((municipiosTot.length * 20) + margin.top + 20) + ")")
+                    .style("text-anchor", "middle")
+                    .text("Casos confirmados");
+                svg.append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - margin.left -150)
+                    .attr("x",0 - ((municipiosTot.length * 20) / 2))
+                    .attr("dy", "1em")
+                    .style("text-anchor", "middle")
+                    .text("Municipio");
+
+                $('select').formSelect();
+            }
+
+            $(document).ready(function(){
+                $('#departamentos').change(function(){
+                    $('#municipios').html('<option value="" disabled selected>- Municipio -</option>')
+                    var selected = departamentos[$(this).val()];
+                    for (var key in selected) {
+                        if (selected.hasOwnProperty(key) && key != 'value') {
+                            $('#municipios').append('<option value="'+key+'">'+key+'</option>');
+                        }
+                    }
+                    $('#municipios').formSelect();
+                    processData();
+                });
+                $('#municipios').change(function(){
+                    console.log($(this).val());
+                    processData();
+                });
+            });
+        </script>
+    </body>
+</html>
