@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Test d'API</title>
+  </head>
+  <body>
+  <script type=text/javascript>
+    const baseUrl = "https://randomuser.me/api/"
+    const nRes = 10
+
+    function getData() {
+      const url = baseUrl + "?results="+ nRes
+      fetch (url)
+        .then(response => response.json())
+        .then(data => traitement(data))
+        .catch (erreur => alert(erreur))
+    }
+
+    function traitement (data) {
+      const r = data.results
+      var affichage = ""
+ 
+      r.forEach (function (personne, i)
+      {
+        affichage += '<div id="personne' + i + '">'
+        affichage += personne.name.first + " " + personne.name.last + "</div>"
+        affichage += '<div id="drapeau' + i + '">'
+        affichage += '<img src="https://www.countryflags.io/' + personne.nat.toLowerCase() + '/shiny/16.png" />'
+        affichage += '</div><br/>'
+      })
+
+      document.getElementById("machin").innerHTML = affichage
+    }
+  </script>
+  <div id="machin">
+  </div>
+  <button id="pouet" onclick="getData()">C'est parti</button>
+  </body>
+</html>
