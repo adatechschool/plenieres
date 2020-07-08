@@ -1,4 +1,4 @@
-# Compréhension de base la notion de fonction
+# Compréhension de base des fonctions
 
 ## Comment faire cet exercice
 
