@@ -1,13 +1,13 @@
 import hashlib
 import csv
+from passlib.hash import argon2
 
 def data_process(name, password):
-    h = hashlib.sha512()
-    password = bytes(str(password), "utf-8")
-    h.update(password)
+    h = argon2.hash(password)
+
     with open("password.csv", "a") as file:
         writer = csv.writer(file, delimiter=',')
-        writer.writerow([name, h.hexdigest()])
+        writer.writerow([name, h])
     return
 
 data_process("Nicola", "odnaondzvaonvan")
